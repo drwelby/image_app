@@ -2,6 +2,7 @@
  * Add all your dependencies here.
  *
  * @require widgets/Viewer.js
+ * @require widgets/CrumbPanel.js
  * @require plugins/LayerTree.js
  * @require plugins/OLSource.js
  * @require plugins/OSMSource.js
@@ -14,6 +15,7 @@
  * @require plugins/FeatureManager.js
  * @require plugins/FeatureEditor.js
  * @require plugins/FeatureGrid.js
+ * @require plugins/WMSGetFeatureInfo.js
  * @require RowExpander.js
  */
 
@@ -23,7 +25,12 @@ Ext.onReady(function() {
         portalConfig: {
             layout: "border",
             region: "center",
-            
+            tbar: { 
+                xtype: "toolbar",
+                id: 'paneltbar',
+                disabled: true,
+                items: []
+                },
             // by configuring items here, we don't need to configure portalItems
             // and save a wrapping container
             items: [{
@@ -35,17 +42,22 @@ Ext.onReady(function() {
                 items: ["mymap"]
             }, {
                 id: "westpanel",
+                xtype: "gxp_crumbpanel",
+                //layout: "fit",
+                region: "west",
+                width: 200,
+                split: true,
+                collapsible: true,
+                collapseMode: "mini",
+                hideCollapseTool: true,
+                header: false
+            },{
+                id: "south",
                 xtype: "container",
                 layout: "fit",
-                region: "west",
-                width: 200
-            },{
-                    id: "south",
-                    xtype: "container",
-                    layout: "fit",
-                    region: "south",
-                    border: false,
-                    height: 200
+                region: "south",
+                border: false,
+                height: 200
             }
             ],
             bbar: {id: "mybbar"}
@@ -63,9 +75,14 @@ Ext.onReady(function() {
         }, {
             ptype: "gxp_addlayers",
             actionTarget: "tree.tbar"
+            //outputTarget: "westpanel"
         }, {
             ptype: "gxp_removelayer",
             actionTarget: ["tree.tbar", "tree.contextMenu"]
+        }, {
+                ptype: "gxp_wmsgetfeatureinfo", format: 'grid',
+                showButtonText: true,
+                actionTarget: "map.tbar"
         }, {
             ptype: "gxp_zoomtoextent",
             actionTarget: "map.tbar"
@@ -113,7 +130,7 @@ Ext.onReady(function() {
         // map and layers
         map: {
             id: "mymap", // id needed to reference map in portalConfig above
-            title: "Map",
+            //title: "Map",
             projection: "EPSG:900913",
             center: [-10764594.758211, 4523072.3184791],
             zoom: 3,
