@@ -21,6 +21,29 @@
 
 var app;
 Ext.onReady(function() {
+    function showMenu(grid, index, event) {
+      event.stopEvent();
+      var record = grid.getStore().getAt(index);
+      var menu = new Ext.menu.Menu({
+            items: [{
+                text: 'Zoom to request',
+                handler: function() {
+                    bounds = record.get('feature').geometry.getBounds();
+                    app.mapPanel.map.zoomToExtent(bounds);
+                }
+            }, {
+                text: 'View request info',
+                handler: function() {
+                    id = record.get('id');
+                    // Need to get the window location and mod it
+                    url = "http://192.168.244.151:8000/rfi/request/" + id;
+                    alert(id);
+                    window.open(url, '_self');
+                }
+            }]
+        }).showAt(event.xy);
+    }
+
     app = new gxp.Viewer({
         portalConfig: {
             layout: "border",
@@ -109,9 +132,14 @@ Ext.onReady(function() {
             ptype: "gxp_featuregrid",
             featureManager: "requests_manager",
             outputConfig: {
-                loadMask: true
+                loadMask: true,
+                listeners: {
+                        rowcontextmenu: function(grid, index, event) {
+                                 showMenu(grid, index, event);
+                                     }
+            }
             },
-            outputTarget: "south"
+            outputTarget: "south",
         }],
 
         
