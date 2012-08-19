@@ -16,11 +16,14 @@
  * @require plugins/FeatureEditor.js
  * @require plugins/FeatureGrid.js
  * @require plugins/WMSGetFeatureInfo.js
+ * @require plugins/QueryForm.js
  * @require RowExpander.js
+ * @require widgets/NewSourceDialog.js
  */
 
 var app;
 Ext.onReady(function() {
+
     function showMenu(grid, index, event) {
       event.stopEvent();
       var record = grid.getStore().getAt(index);
@@ -97,15 +100,15 @@ Ext.onReady(function() {
             outputTarget: "westpanel"
         }, {
             ptype: "gxp_addlayers",
-            actionTarget: "tree.tbar"
-            //outputTarget: "westpanel"
+            actionTarget: "tree.tbar",
         }, {
             ptype: "gxp_removelayer",
             actionTarget: ["tree.tbar", "tree.contextMenu"]
         }, {
-                ptype: "gxp_wmsgetfeatureinfo", format: 'grid',
-                showButtonText: true,
-                actionTarget: "map.tbar"
+            ptype: "gxp_wmsgetfeatureinfo", 
+            //format: 'grid',
+            showButtonText: true,
+            actionTarget: "map.tbar"
         }, {
             ptype: "gxp_zoomtoextent",
             actionTarget: "map.tbar"
@@ -135,11 +138,15 @@ Ext.onReady(function() {
                 loadMask: true,
                 listeners: {
                         rowcontextmenu: function(grid, index, event) {
-                                 showMenu(grid, index, event);
-                                     }
-            }
+                            showMenu(grid, index, event);
+                        }
+                }
             },
             outputTarget: "south",
+        },{
+            ptype: "gxp_queryform",
+            featureManager: "requests_manager",
+            actionTarget: "map.tbar"
         }],
 
         
@@ -176,7 +183,10 @@ Ext.onReady(function() {
                 vertical: true,
                 height: 100
             }]
-        }
+        },
+
+        //Proxy
+        proxy: "proxy/?url="
 
     });
 });
