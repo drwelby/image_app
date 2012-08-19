@@ -159,6 +159,7 @@ gxp.plugins.QueryForm = Ext.extend(gxp.plugins.Tool, {
         config = Ext.apply({
             border: false,
             bodyStyle: "padding: 10px",
+               width: 550,
             layout: "form",
             autoScroll: true,
             items: [{
