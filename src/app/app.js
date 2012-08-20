@@ -38,10 +38,22 @@ Ext.onReady(function() {
                 text: 'View request info',
                 handler: function() {
                     id = record.get('id');
-                    // Need to get the window location and mod it
-                    url = "http://192.168.244.151:8000/rfi/request/" + id;
-                    alert(id);
-                    window.open(url, '_self');
+                    url = "/rfi/info/" + id;
+                    //window.open(url, '_self');
+                    Ext.Ajax.request({
+                        url: url,
+                        success: function(response){
+                            var win = new Ext.Window({
+                                title: 'Request Details',
+                                width: 700,
+                                height: 500,
+                                plain: true,
+                                border: false,
+                                html:response.responseText
+                            });
+                            win.show();
+                        }
+                    });
                 }
             }]
         }).showAt(event.xy);
@@ -100,7 +112,7 @@ Ext.onReady(function() {
             outputTarget: "westpanel"
         }, {
             ptype: "gxp_addlayers",
-            actionTarget: "tree.tbar",
+            actionTarget: "tree.tbar"
         }, {
             ptype: "gxp_removelayer",
             actionTarget: ["tree.tbar", "tree.contextMenu"]
@@ -142,7 +154,7 @@ Ext.onReady(function() {
                         }
                 }
             },
-            outputTarget: "south",
+            outputTarget: "south"
         },{
             ptype: "gxp_queryform",
             featureManager: "requests_manager",
