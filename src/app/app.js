@@ -19,6 +19,7 @@
  * @require plugins/QueryForm.js
  * @require RowExpander.js
  * @require widgets/NewSourceDialog.js
+ * @require RFIClickNewRequest.js
  */
 
 var app;
@@ -158,6 +159,9 @@ Ext.onReady(function() {
         },{
             ptype: "gxp_queryform",
             featureManager: "requests_manager",
+            actionTarget: "map.tbar"
+        },{
+            ptype: "rfi_rficlicknewrequest",
             actionTarget: "map.tbar"
         }],
 
