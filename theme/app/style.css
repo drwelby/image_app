@@ -16,3 +16,36 @@ body {
     font-size: 9px;
     bottom: 2px;
 }
+
+table.gridtable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 3px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 3px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+.table-insert h1{
+    font-size: 150%;
+}
+
+.table-insert h2{
+    font-size: 125%;
+}
+
