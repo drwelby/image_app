@@ -584,3 +584,9 @@ div.olMap div.gx-overlay-playback {
 .thumb-mapbox-world-print {
     background-image:url('img/thumbs/mapbox/world-print.png');
 }
+
+/* RFI TOOLS */
+
+.x-btn .rfi-clicknewrequest, .x-menu-item .rfi-clicknewrequest{ 
+    background-image: url(img/silk/world_add.png);
+}

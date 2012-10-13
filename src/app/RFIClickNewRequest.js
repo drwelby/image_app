@@ -85,7 +85,7 @@ rfi.RFIClickNewRequest = Ext.extend(gxp.plugins.Tool, {
         
         var actions = rfi.RFIClickNewRequest.superclass.addActions.call(this, [{
             tooltip: this.infoActionTip,
-            iconCls: "gxp-icon-getfeatureinfo",
+            iconCls: "rfi-clicknewrequest",
             toggleGroup: this.toggleGroup,
             enableToggle: true,
             allowDepress: true,
@@ -207,9 +207,11 @@ rfi.RFIClickNewRequest = Ext.extend(gxp.plugins.Tool, {
             activeItem = activeItem + step;
             if (activeItem >= (features.length - 1)) {
                 Ext.getCmp('nextButton').disable();
+                Ext.getCmp('prevButton').enable();
             }  
             else if (activeItem <= 0) {
                Ext.getCmp('prevButton').disable();
+                Ext.getCmp('nextButton').enable();
             }
             else {
                 Ext.getCmp('prevButton').enable();
@@ -221,6 +223,7 @@ rfi.RFIClickNewRequest = Ext.extend(gxp.plugins.Tool, {
         }
         
         var featureCount = new Ext.Toolbar.TextItem({text: '1/' + features.length});
+        if (features.length == 1) {featureCount.addClass('x-item-disabled');}
 
         popup = this.addOutput({
             xtype: "gx_popup",
@@ -261,7 +264,8 @@ rfi.RFIClickNewRequest = Ext.extend(gxp.plugins.Tool, {
                 text: "Use This Feature",
                 handler: function(){
                     geom = features[activeItem].geometry.toString();
-                    alert(geom);
+                    url = rfi.DJANGO_BASE_URL + "/new/?bounds=" + escape(geom);
+                    window.open(url);
                 }
                  }]
         });
