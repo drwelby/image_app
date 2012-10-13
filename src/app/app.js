@@ -7,6 +7,7 @@
  * @require plugins/OLSource.js
  * @require plugins/OSMSource.js
  * @require plugins/WMSCSource.js
+ * @require plugins/WMSSource.js
  * @require plugins/ZoomToExtent.js
  * @require plugins/NavigationHistory.js
  * @require plugins/Zoom.js
@@ -25,6 +26,10 @@
 var app;
 Ext.onReady(function() {
 
+    Ext.namespace("rfi");
+    //rfi.DJANGO_BASE_URL = "http://192.168.244.151:8000/rfi";
+    rfi.DJANGO_BASE_URL = "/rfi";
+
     function showMenu(grid, index, event) {
       event.stopEvent();
       var record = grid.getStore().getAt(index);
@@ -39,7 +44,7 @@ Ext.onReady(function() {
                 text: 'View request info',
                 handler: function() {
                     id = record.get('id');
-                    url = "/rfi/info/" + id;
+                    url = rfi.DJANGO_BASE_URL + "/info/" + id + "/";
                     //window.open(url, '_self');
                     Ext.Ajax.request({
                         url: url,
@@ -121,7 +126,8 @@ Ext.onReady(function() {
             ptype: "gxp_wmsgetfeatureinfo", 
             //format: 'grid',
             showButtonText: true,
-            actionTarget: "map.tbar"
+            actionTarget: "map.tbar",
+            toggleGroup: "maptools"
         }, {
             ptype: "gxp_zoomtoextent",
             actionTarget: "map.tbar"
@@ -162,7 +168,8 @@ Ext.onReady(function() {
             actionTarget: "map.tbar"
         },{
             ptype: "rfi_rficlicknewrequest",
-            actionTarget: "map.tbar"
+            actionTarget: "map.tbar",
+            toggleGroup: "maptools"
         }],
 
         
@@ -201,7 +208,7 @@ Ext.onReady(function() {
             }]
         },
 
-        //Proxy
+        defaultSourceType: "gxp_wmssource",
         proxy: "proxy/?url="
 
     });
