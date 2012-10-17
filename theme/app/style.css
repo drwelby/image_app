@@ -26,6 +26,7 @@ table.gridtable {
     border-collapse: collapse;
     margin-top: 8px;
     margin-bottom: 12px;
+    width: 100%;
 }
 table.gridtable th {
     border-width: 1px;
@@ -40,6 +41,9 @@ table.gridtable td {
     border-style: solid;
     border-color: #666666;
     background-color: #ffffff;
+}
+table.gridtable td.rfi-data {
+    width: 100%;
 }
 .table-insert h1{
     font-size: 150%;
