@@ -27,8 +27,8 @@ var app;
 Ext.onReady(function() {
 
     Ext.namespace("rfi");
-    //rfi.DJANGO_BASE_URL = "http://192.168.244.151:8000/rfi";
-    rfi.DJANGO_BASE_URL = "/rfi";
+    rfi.DJANGO_BASE_URL = "http://192.168.244.151:8000/rfi";
+    //rfi.DJANGO_BASE_URL = "/rfi";
 
     function showMenu(grid, index, event) {
       event.stopEvent();
@@ -51,8 +51,9 @@ Ext.onReady(function() {
                         success: function(response){
                             var win = new Ext.Window({
                                 title: 'Request Details',
-                                width: 700,
-                                height: 500,
+                                width: 500,
+                                height: 550,
+                                autoScroll: true,
                                 plain: true,
                                 border: false,
                                 html:response.responseText
@@ -60,6 +61,13 @@ Ext.onReady(function() {
                             win.show();
                         }
                     });
+                }
+            }, {
+                text: 'Edit request info',
+                handler: function() {
+                    id = record.get('id');
+                    url = rfi.DJANGO_BASE_URL + "/edit/" + id + "/";
+                    window.open(url, '_self');
                 }
             }]
         }).showAt(event.xy);
@@ -149,7 +157,8 @@ Ext.onReady(function() {
         },{
             ptype: "gxp_featureeditor",
             featureManager: "requests_manager",
-            autoLoadFeature: true
+            autoLoadFeature: true,
+            toggleGroup: "maptools"
         },{
             ptype: "gxp_featuregrid",
             featureManager: "requests_manager",
