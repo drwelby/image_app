@@ -226,6 +226,9 @@ gxp.data.WFSProtocolProxy = Ext.extend(GeoExt.data.ProtocolProxy, {
                     if (fields.containsKey(a)) {
                         data[i][a] = f.attributes[a];
                     }
+                // Get the id returned by the server so ext can use it in the
+                // datastore
+                data[i].id = f.fid.split('.')[1];
                 }
             }
 
