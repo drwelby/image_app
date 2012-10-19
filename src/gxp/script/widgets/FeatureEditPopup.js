@@ -286,6 +286,9 @@ gxp.FeatureEditPopup = Ext.extend(GeoExt.Popup, {
             "cancelclose"
         );
         
+        // id and pk should be reserved for postgis, etc
+        this.excludeFields = ['id', 'pk'];
+
         var feature = this.feature;
         if (feature instanceof GeoExt.data.FeatureRecord) {
             feature = this.feature = feature.getFeature();
