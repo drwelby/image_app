@@ -132,7 +132,7 @@ Ext.onReady(function() {
             actionTarget: ["tree.tbar", "tree.contextMenu"]
         }, {
             ptype: "gxp_wmsgetfeatureinfo", 
-            //format: 'grid',
+            format: 'grid',
             showButtonText: true,
             actionTarget: "map.tbar",
             toggleGroup: "maptools"
