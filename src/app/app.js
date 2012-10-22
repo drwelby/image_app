@@ -27,8 +27,8 @@ var app;
 Ext.onReady(function() {
 
     Ext.namespace("rfi");
-    rfi.DJANGO_BASE_URL = "http://192.168.244.151:8000/rfi";
-    //rfi.DJANGO_BASE_URL = "/rfi";
+    //rfi.DJANGO_BASE_URL = "http://192.168.244.151:8000/rfi";
+    rfi.DJANGO_BASE_URL = "/rfi";
 
     function showMenu(grid, index, event) {
       event.stopEvent();
