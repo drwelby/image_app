@@ -120,6 +120,12 @@ OpenLayers.Control.DrawFeature = OpenLayers.Class(OpenLayers.Control, {
         if(proceed !== false) {
             feature.state = OpenLayers.State.INSERT;
             this.layer.addFeatures([feature]);
+            // wtf deployed app?
+            if (feature.layer.projection == null) {
+                console.log("setting projection");
+                feature.layer.projection = new OpenLayers.Projection(feature.layer.map.projection);
+            }
+            console.log(feature);
             this.featureAdded(feature);
             this.events.triggerEvent("featureadded",{feature : feature});
         }
